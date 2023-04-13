@@ -10,79 +10,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_214931) do
-  create_table "audio_comments", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_075317) do
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "content_id", null: false
     t.integer "user_id", null: false
-    t.integer "audio_id", null: false
+    t.string "comment"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["audio_id"], name: "index_audio_comments_on_audio_id"
-    t.index ["user_id"], name: "index_audio_comments_on_user_id"
+    t.index ["content_id"], name: "index_comments_on_content_id"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "audios", force: :cascade do |t|
+  create_table "contents", force: :cascade do |t|
     t.string "title"
+    t.string "description"
+    t.string "type"
+    t.string "url"
     t.string "thumbnail"
-    t.string "category"
-    t.text "description"
-    t.boolean "verification"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "blog_comments", force: :cascade do |t|
+    t.integer "category_id", null: false
     t.integer "user_id", null: false
-    t.integer "blog_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["blog_id"], name: "index_blog_comments_on_blog_id"
-    t.index ["user_id"], name: "index_blog_comments_on_user_id"
+    t.index ["category_id"], name: "index_contents_on_category_id"
+    t.index ["user_id"], name: "index_contents_on_user_id"
   end
 
-  create_table "blogs", force: :cascade do |t|
-    t.string "title"
-    t.string "thumbnail"
-    t.string "category"
-    t.text "description"
-    t.text "content"
-    t.boolean "verification"
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subscriptions_on_category_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "user_type"
     t.string "password"
+    t.string "role"
+    t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "video_comments", force: :cascade do |t|
+  create_table "wishlists", force: :cascade do |t|
+    t.integer "content_id", null: false
     t.integer "user_id", null: false
-    t.integer "video_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_video_comments_on_user_id"
-    t.index ["video_id"], name: "index_video_comments_on_video_id"
+    t.index ["content_id"], name: "index_wishlists_on_content_id"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
-  create_table "videos", force: :cascade do |t|
-    t.string "title"
-    t.string "thumbnail"
-    t.string "video"
-    t.string "category"
-    t.text "description"
-    t.boolean "verification"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "audio_comments", "audios"
-  add_foreign_key "audio_comments", "users"
-  add_foreign_key "blog_comments", "blogs"
-  add_foreign_key "blog_comments", "users"
-  add_foreign_key "video_comments", "users"
-  add_foreign_key "video_comments", "videos"
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "contents"
+  add_foreign_key "comments", "users"
+  add_foreign_key "contents", "categories"
+  add_foreign_key "contents", "users"
+  add_foreign_key "subscriptions", "categories"
+  add_foreign_key "subscriptions", "users"
+  add_foreign_key "wishlists", "contents"
+  add_foreign_key "wishlists", "users"
 end
