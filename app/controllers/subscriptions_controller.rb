@@ -3,45 +3,45 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions
   def index
-    @subscriptions = Subscription.all
+     subscriptions = Subscription.all
 
-    render json: @subscriptions
+    render json:  subscriptions
   end
 
   # GET /subscriptions/1
   def show
-    render json: @subscription
+    render json:  subscription
   end
 
   # POST /subscriptions
   def create
-    @subscription = Subscription.new(subscription_params)
+     subscription = Subscription.new(subscription_params)
 
-    if @subscription.save
-      render json: @subscription, status: :created, location: @subscription
+    if  subscription.save
+      render json:  subscription, status: :created, location:  subscription
     else
-      render json: @subscription.errors, status: :unprocessable_entity
+      render json:  subscription.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /subscriptions/1
   def update
-    if @subscription.update(subscription_params)
-      render json: @subscription
+    if  subscription.update(subscription_params)
+      render json:  subscription
     else
-      render json: @subscription.errors, status: :unprocessable_entity
+      render json:  subscription.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /subscriptions/1
   def destroy
-    @subscription.destroy
+     subscription.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subscription
-      @subscription = Subscription.find(params[:id])
+       subscription = Subscription.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

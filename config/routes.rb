@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   resources :subscriptions
   resources :comments
   resources :contents
-  resources :categories
-   resources :videos
-  resources :audios
-  resources :blogs
+  resources :categories  
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

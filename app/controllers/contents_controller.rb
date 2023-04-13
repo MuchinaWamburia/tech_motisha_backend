@@ -3,45 +3,45 @@ class ContentsController < ApplicationController
 
   # GET /contents
   def index
-    @contents = Content.all
+     contents = Content.all
 
-    render json: @contents
+    render json:  contents
   end
 
   # GET /contents/1
   def show
-    render json: @content
+    render json:  content
   end
 
   # POST /contents
   def create
-    @content = Content.new(content_params)
+     content = Content.new(content_params)
 
-    if @content.save
-      render json: @content, status: :created, location: @content
+    if  content.save
+      render json:  content, status: :created, location:  content
     else
-      render json: @content.errors, status: :unprocessable_entity
+      render json:  content.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /contents/1
   def update
-    if @content.update(content_params)
-      render json: @content
+    if  content.update(content_params)
+      render json:  content
     else
-      render json: @content.errors, status: :unprocessable_entity
+      render json:  content.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /contents/1
   def destroy
-    @content.destroy
+     content.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_content
-      @content = Content.find(params[:id])
+       content = Content.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -5,64 +5,38 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-# Create some users
- 
-require 'faker'
+
 
 puts "seeding started"
+puts"create categories"
+Category.create(name: "Programming")
+Category.create(name: "Artificial Intelligence")
+Category.create(name: "Machine Learning")
 
-puts "Create some categories"
-5.times do
-  Category.create(name: Faker::Commerce.department)
-end
+puts"create users"
+User.create(name: "Chiamaka Okonkwo", email: "chiamaka@gmail.com", password: "password", role: "admin", profile_picture: "https://randomuser.me/api/portraits/women/1.jpg")
+User.create(name: "Olumide Adekunle", email: "olumide@yahoo.com", password: "password", role: "user", profile_picture: "https://randomuser.me/api/portraits/men/2.jpg")
+User.create(name: "Adesua Olu", email: "adesua@gmail.com", password: "password", role: "user", profile_picture: "https://randomuser.me/api/portraits/women/3.jpg")
+User.create(name: "Babatunde Johnson", email: "babatunde@yahoo.com", password: "password", role: "user", profile_picture: "https://randomuser.me/api/portraits/men/4.jpg")
 
-puts "Create some users"
-10.times do
-  User.create(
-    name: Faker::Name.name,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password,
-    role: ['admin', 'user'].sample,
-    profile_picture: Faker::Avatar.image
-  )
-end
+puts"create contents"
+Content.create(title: "How to build a RESTful API with Ruby on Rails", description: "Learn how to build a RESTful API with Ruby on Rails using the Active Model Serializers gem.", type: "video", url: "https://www.youtube.com/watch?v=QojnRc7SS9o", thumbnail: "https://i.ytimg.com/vi/QojnRc7SS9o/maxresdefault.jpg", category_id: 1, user_id: 1)
+Content.create(title: "Introduction to Artificial Intelligence", description: "This course covers the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.", type: "article", url: "https://www.coursera.org/learn/ai-for-everyone", thumbnail: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d3njjcbhbojbot.cloudfront.net/uploads/image/image/250162/large_6d11d328e16450b206f25910df46c0da.jpg?auto=format%2Ccompress&dpr=2&w=640&h=480", category_id: 2, user_id: 2)
+Content.create(title: "Introduction to Machine Learning", description: "Learn the basics of machine learning, including linear regression, logistic regression, and decision trees.", type: "video", url: "https://www.youtube.com/watch?v=HcqpanDadyQ", thumbnail: "https://i.ytimg.com/vi/HcqpanDadyQ/maxresdefault.jpg", category_id: 3, user_id: 3)
 
-puts "Create some contents"
-20.times do
-  Content.create(
-    title: Faker::Book.title,
-    description: Faker::Lorem.sentence,
-    type: ['article', 'video'].sample,
-    url: Faker::Internet.url,
-    thumbnail: Faker::LoremFlickr.image,
-    category: Category.all.sample,
-    user: User.all.sample
-  )
-end
+puts"create subscriptions"
+Subscription.create(category_id: 1, user_id: 2)
+Subscription.create(category_id: 2, user_id: 3)
+Subscription.create(category_id: 3, user_id: 4)
 
-puts  "Create some subscriptions"
-30.times do
-  Subscription.create(
-    category: Category.all.sample,
-    user: User.all.sample
-  )
-end
+puts"create wishlists"
+Wishlist.create(content_id: 2, user_id: 1)
+Wishlist.create(content_id: 3, user_id: 1)
 
-puts "Create some comments"
-20.times do
-  Comment.create(
-    comment: Faker::Lorem.sentence,
-    user: User.all.sample,
-    content: Content.all.sample,
-    parent: Comment.all.sample
-  )
-end
+puts"create comments"
+Comment.create(content_id: 1, user_id: 2, comment: "Great tutorial! Thanks for sharing.", parent_id: nil)
+Comment.create(content_id: 1, user_id: 1, comment: "I'm glad you found it helpful!", parent_id: 1)
+Comment.create(content_id: 2, user_id: 1, comment: "This course is amazing. Highly recommend it.", parent_id: nil)
 
-puts "Create some wishlists"
-20.times do
-  Wishlist.create(
-    content: Content.all.sample,
-    user: User.all.sample
-  )
-end
-puts "done"
+
+puts "seeding done"
