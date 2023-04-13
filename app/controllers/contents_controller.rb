@@ -1,7 +1,5 @@
 class ContentsController < ApplicationController
-  before_action :set_content, only: %i[ show update destroy ]
-
-  # GET /contents
+   # GET /contents
   def index
      contents = Content.all
 
@@ -10,6 +8,7 @@ class ContentsController < ApplicationController
 
   # GET /contents/1
   def show
+    content = Content.find(params[:id])
     render json:  content
   end
 
@@ -26,6 +25,7 @@ class ContentsController < ApplicationController
 
   # PATCH/PUT /contents/1
   def update
+    content = Content.find(params[:id])
     if  content.update(content_params)
       render json:  content
     else
@@ -35,16 +35,13 @@ class ContentsController < ApplicationController
 
   # DELETE /contents/1
   def destroy
+    content = Content.find(params[:id])
      content.destroy
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_content
-       content = Content.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
+     # Only allow a list of trusted parameters through.
     def content_params
       params.require(:content).permit(:title, :description, :type, :url, :thumbnail, :category_id, :user_id, :created_at, :updated_at)
     end

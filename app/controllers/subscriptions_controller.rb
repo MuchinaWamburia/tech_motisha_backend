@@ -1,6 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: %i[ show update destroy ]
-
+ 
   # GET /subscriptions
   def index
      subscriptions = Subscription.all
@@ -10,6 +9,7 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions/1
   def show
+    subscription = Subscription.find(params[:id])
     render json:  subscription
   end
 
@@ -26,6 +26,7 @@ class SubscriptionsController < ApplicationController
 
   # PATCH/PUT /subscriptions/1
   def update
+    subscription = Subscription.find(params[:id])
     if  subscription.update(subscription_params)
       render json:  subscription
     else
@@ -35,7 +36,9 @@ class SubscriptionsController < ApplicationController
 
   # DELETE /subscriptions/1
   def destroy
+    subscription = Subscription.find(params[:id])
      subscription.destroy
+     head :no_content
   end
 
   private

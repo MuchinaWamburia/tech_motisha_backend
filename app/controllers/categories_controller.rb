@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
 
   # GET /categories
   def index
@@ -7,11 +6,12 @@ class CategoriesController < ApplicationController
 
     render json:  categories
   end
-
-  # GET /categories/1
+  # GET /categories/:id
   def show
-    render json:  category
+    category = Category.find(params[:id])
+    render json: category
   end
+
 
   # POST /categories
   def create
@@ -26,6 +26,7 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1
   def update
+    category = Category.find(params[:id])
     if  category.update(category_params)
       render json:  category
     else
@@ -35,16 +36,13 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
+    category = Category.find(params[:id])
      category.destroy
+     head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-       category = Category.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
+     # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:name)
     end

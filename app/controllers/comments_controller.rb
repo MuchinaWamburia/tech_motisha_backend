@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show update destroy ]
 
   # GET /comments
   def index
@@ -10,10 +9,11 @@ class CommentsController < ApplicationController
 
   # GET /comments/1
   def show
+    comment= Comment.find(params[:id])
     render json:  comment
   end
 
-  # POST /comments
+  # POST /comments=  {"comment":{"content_id": 1,"user_id": 3,"comment": "I'm glad","parent_id":null}}
   def create
      comment = Comment.new(comment_params)
 
@@ -26,6 +26,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1
   def update
+    comment=Comment.find(params[:id])
     if  comment.update(comment_params)
       render json:  comment
     else
@@ -35,17 +36,14 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
+    comment=Comment.find(params[:id]).
      comment.destroy
+     head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-       comment = Comment.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:content_id, :user_id, :comment, :parent_id, :created_at, :updated_at)
-    end
+# Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:content_id, :user_id, :comment, :parent_id, :created_at, :updated_at)
+  end
 end
