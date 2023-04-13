@@ -3,11 +3,17 @@
 one:
   name: MyString
   email: MyString
-  user_type: MyString
   password: MyString
+  role: MyString
+  profile_picture: MyString
+  created_at: 2023-04-13 10:53:09
+  updated_at: 2023-04-13 10:53:09
 
 two:
   name: MyString
   email: MyString
-  user_type: MyString
   password: MyString
+  role: MyString
+  profile_picture: MyString
+  created_at: 2023-04-13 10:53:09
+  updated_at: 2023-04-13 10:53:09

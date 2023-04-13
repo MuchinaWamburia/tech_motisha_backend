@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: one
+  user: one
+  comment: MyString
+  parent: one
+  created_at: 2023-04-13 10:53:14
+  updated_at: 2023-04-13 10:53:14
+
+two:
+  content: two
+  user: two
+  comment: MyString
+  parent: two
+  created_at: 2023-04-13 10:53:14
+  updated_at: 2023-04-13 10:53:14

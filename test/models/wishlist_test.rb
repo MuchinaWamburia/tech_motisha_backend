@@ -1,6 +1,6 @@
 require "test_helper"
 
-class BlogCommentTest < ActiveSupport::TestCase
+class WishlistTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

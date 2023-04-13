@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  resources :video_comments
-  resources :blog_comments
-  resources :audio_comments
-  resources :videos
+  resources :wishlists
+  resources :subscriptions
+  resources :comments
+  resources :contents
+  resources :categories
+   resources :videos
   resources :audios
   resources :blogs
   resources :users
